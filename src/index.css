@@ -26,6 +26,14 @@ body {
   background-color: rgb(95, 73, 51);
 }
 
+.square-black.square-selected {
+  background-color: rgb(117, 26, 43);
+}
+
+.square-white.square-selected {
+  background-color: rgb(173, 26, 43);
+}
+
 .piece {
   display: flex;
   width: 50px;

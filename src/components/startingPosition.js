@@ -5,12 +5,6 @@ const startingPosition = []
     }
     
     for (let i = 0; i < 8; i++) {
-        startingPosition[i][6] = {
-            type: 'pawn',
-            color: 'black',
-            hasMoved: false
-        }
-
         startingPosition[i][1] = {
             type: 'pawn',
             color: 'white',
