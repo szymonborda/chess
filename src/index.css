@@ -34,6 +34,10 @@ body {
   background-color: rgb(173, 26, 43);
 }
 
+.square-last-moved {
+  background-color: rgb(117 108 86);
+}
+
 .piece {
   display: flex;
   width: 50px;

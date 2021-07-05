@@ -6,13 +6,14 @@ const Board = () => {
 
     const [boardMatrix, setBoardMatrix] = useState(startingPosition)
     const [selectedSquare, setSelectedSquare] = useState([null, null])
-    const [lastMove, setLastMove] = useState([])
+    const [lastMove, setLastMove] = useState([[null, null], [null, null]])
+    const [whoseTurn, setWhoseTurn] = useState('black')
 
     const squaresToRender = []
 
     useEffect(() => {
         calculatePossibleMoves()
-        //console.log(JSON.stringify(boardMatrix))
+        changeTurn()
     }, [lastMove])
 
     const movePiece = (fromCol, fromRow, toCol, toRow) => {
@@ -21,13 +22,21 @@ const Board = () => {
         boardMatrixCopy[fromCol][fromRow] = null
         boardMatrixCopy[toCol][toRow] = {...pieceToMove, hasMoved: true}
         setBoardMatrix(boardMatrixCopy)
-        setLastMove([fromCol, fromRow], [toCol, toRow])
+        setLastMove([[fromCol, fromRow], [toCol, toRow]])
+    }
+
+    const changeTurn = () => {
+        if (whoseTurn === 'white') {
+            setWhoseTurn('black')
+        } else {
+            setWhoseTurn('white')
+        }
     }
 
     const squareOnClick = (column, row, piece) => {
         if ((selectedSquare[0] != null) && (selectedSquare[1] != null)) {
             if (boardMatrix[selectedSquare[0]][selectedSquare[1]].possibleMoves.filter(move => (move[0] === column) && (move[1] === row)).length > 0) {
-                movePiece(selectedSquare[0], selectedSquare[1], column, row)
+                if (boardMatrix[selectedSquare[0]][selectedSquare[1]].color === whoseTurn) movePiece(selectedSquare[0], selectedSquare[1], column, row)
             }
             setSelectedSquare([null, null])
 
@@ -362,7 +371,6 @@ const Board = () => {
 
                             if (isMovePossible(piece, i - 1, j)) piece.possibleMoves.push([i - 1, j])
                             if (isMovePossible(piece, i - 1, j + 1)) piece.possibleMoves.push([i - 1, j + 1])
-                            if (piece.color === 'white') console.log(piece.possibleMoves)
                         break
                         default:
                         break
@@ -376,7 +384,16 @@ const Board = () => {
 
     for (let i = 0; i < 8; i++) {
         for(let j = 0; j < 8; j++) {
-            squaresToRender.push(<Square selected={((selectedSquare[0] === j) && (selectedSquare[1] === i))} squareOnClick={squareOnClick} piece={boardMatrix[j][i]} key={String.fromCharCode(97 + j) + (i + 1)} column={j} row={i} color={(i % 2) ? ((j % 2) ? 'square-black' : 'square-white') : ((j % 2) ? 'square-white' : 'square-black')}/>)
+            squaresToRender.push(<Square 
+                selected={((selectedSquare[0] === j) && (selectedSquare[1] === i))}
+                lastMoved={(((lastMove[0][0] === j) && (lastMove[0][1] === i)) || ((lastMove[1][0] === j) && (lastMove[1][1] === i)))}
+                squareOnClick={squareOnClick} 
+                piece={boardMatrix[j][i]} 
+                key={String.fromCharCode(97 + j) + (i + 1)} 
+                column={j} 
+                row={i} 
+                color={(i % 2) ? ((j % 2) ? 'square-black' : 'square-white') : ((j % 2) ? 'square-white' : 'square-black')
+            }/>)
         }   
     }
 
