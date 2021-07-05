@@ -167,17 +167,202 @@ const Board = () => {
                             }
 
                             for (let k = 1; k < i + 1; k++) {
-                                if (isMovePossible(piece.color, i - k, j)) {
+                                if (isMovePossible(piece, i - k, j)) {
                                     piece.possibleMoves.push([i - k, j])
                                 } else {
                                     break
                                 }
 
-                                if (isMoveTaking(piece.color, i - k, j)) {
+                                if (isMoveTaking(piece, i - k, j)) {
                                     break
                                 }
                                 
                             }
+                        break
+                        case 'bishop':
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i + k, j + k)) {
+                                    piece.possibleMoves.push([i + k, j + k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i + k, j + k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i + k, j - k)) {
+                                    piece.possibleMoves.push([i + k, j - k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i + k, j - k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i - k, j + k)) {
+                                    piece.possibleMoves.push([i - k, j + k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i - k, j + k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i - k, j - k)) {
+                                    piece.possibleMoves.push([i - k, j - k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i - k, j - k)) {
+                                    break
+                                }
+                                
+                            }
+                        break
+                        case 'queen':
+                            for (let k = 1; k < 8 - j; k++) {
+                                if (isMovePossible(piece, i, j + k)) {
+                                    piece.possibleMoves.push([i, j + k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i, j + k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < j + 1; k++) {
+                                if (isMovePossible(piece, i, j - k)) {
+                                    piece.possibleMoves.push([i, j - k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i, j - k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8 - i; k++) {
+                                if (isMovePossible(piece, i + k, j)) {
+                                    piece.possibleMoves.push([i + k, j])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i + k, j)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < i + 1; k++) {
+                                if (isMovePossible(piece, i - k, j)) {
+                                    piece.possibleMoves.push([i - k, j])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i - k, j)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i + k, j + k)) {
+                                    piece.possibleMoves.push([i + k, j + k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i + k, j + k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i + k, j - k)) {
+                                    piece.possibleMoves.push([i + k, j - k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i + k, j - k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i - k, j + k)) {
+                                    piece.possibleMoves.push([i - k, j + k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i - k, j + k)) {
+                                    break
+                                }
+                                
+                            }
+
+                            for (let k = 1; k < 8; k++) {
+                                if (isMovePossible(piece, i - k, j - k)) {
+                                    piece.possibleMoves.push([i - k, j - k])
+                                } else {
+                                    break
+                                }
+
+                                if (isMoveTaking(piece, i - k, j - k)) {
+                                    break
+                                }
+                                
+                            }
+                        break
+                        case 'knight':
+                            if (isMovePossible(piece, i + 2, j + 1)) piece.possibleMoves.push([i + 2, j + 1])
+                            if (isMovePossible(piece, i + 1, j + 2)) piece.possibleMoves.push([i + 1, j + 2])
+
+                            if (isMovePossible(piece, i - 2, j - 1)) piece.possibleMoves.push([i - 2, j - 1])
+                            if (isMovePossible(piece, i - 1, j - 2)) piece.possibleMoves.push([i - 1, j - 2])
+
+                            if (isMovePossible(piece, i + 2, j - 1)) piece.possibleMoves.push([i + 2, j - 1])
+                            if (isMovePossible(piece, i + 1, j - 2)) piece.possibleMoves.push([i + 1, j - 2])
+
+                            if (isMovePossible(piece, i - 2, j + 1)) piece.possibleMoves.push([i - 2, j + 1])
+                            if (isMovePossible(piece, i - 1, j + 2)) piece.possibleMoves.push([i - 1, j + 2])
+                        break
+                        case 'king':
+                            if (isMovePossible(piece, i, j + 1)) piece.possibleMoves.push([i, j + 1])
+                            if (isMovePossible(piece, i + 1, j + 1)) piece.possibleMoves.push([i + 1, j + 1])
+
+                            if (isMovePossible(piece, i + 1, j)) piece.possibleMoves.push([i + 1, j])
+                            if (isMovePossible(piece, i + 1, j - 1)) piece.possibleMoves.push([i + 1, j - 1])
+
+                            if (isMovePossible(piece, i, j - 1)) piece.possibleMoves.push([i, j - 1])
+                            if (isMovePossible(piece, i - 1, j - 1)) piece.possibleMoves.push([i - 1, j - 1])
+
+                            if (isMovePossible(piece, i - 1, j)) piece.possibleMoves.push([i - 1, j])
+                            if (isMovePossible(piece, i - 1, j + 1)) piece.possibleMoves.push([i - 1, j + 1])
+                            if (piece.color === 'white') console.log(piece.possibleMoves)
                         break
                         default:
                         break
