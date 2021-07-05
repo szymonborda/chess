@@ -8,14 +8,16 @@ const startingPosition = []
         startingPosition[i][1] = {
             type: 'pawn',
             color: 'white',
-            hasMoved: false
+            hasMoved: false,
+            possibleMoves: []
         }
     }
 
     startingPosition[0][0] = {
             type: 'rook',
             color: 'white',
-            hasMoved: false
+            hasMoved: false,
+            possibleMoves: []
     }
 
     startingPosition[7][0] = startingPosition[0][0]
@@ -23,7 +25,8 @@ const startingPosition = []
     startingPosition[1][0] = {
         type: 'knight',
         color: 'white',
-        hasMoved: false
+        hasMoved: false,
+        possibleMoves: []
     }
 
     startingPosition[6][0] = startingPosition[1][0]
@@ -31,7 +34,8 @@ const startingPosition = []
     startingPosition[2][0] = {
         type: 'bishop',
         color: 'white',
-        hasMoved: false
+        hasMoved: false,
+        possibleMoves: []
     }
 
     startingPosition[5][0] = startingPosition[2][0]
@@ -39,13 +43,15 @@ const startingPosition = []
     startingPosition[3][0] = {
         type: 'queen',
         color: 'white',
-        hasMoved: false
+        hasMoved: false,
+        possibleMoves: []
     }
 
     startingPosition[4][0] = {
         type: 'king',
         color: 'white',
-        hasMoved: false
+        hasMoved: false,
+        possibleMoves: []
     }
 
     for (let i = 0; i < 8; i++) {
