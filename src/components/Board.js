@@ -12,6 +12,7 @@ const Board = () => {
 
     useEffect(() => {
         calculatePossibleMoves()
+        //console.log(JSON.stringify(boardMatrix))
     }, [lastMove])
 
     const movePiece = (fromCol, fromRow, toCol, toRow) => {
@@ -35,11 +36,11 @@ const Board = () => {
         }
     }
 
-    const isMovePossible = (color, col, row) => {
-        if ((col < 8) && (row < 8)) {
+    const isMovePossible = (piece, col, row) => {
+        if ((col < 8) && (row < 8) && (col >= 0) && (row >= 0)) {
             if (boardMatrix[col][row] == null) {
                 return true
-            } else if (boardMatrix[col][row].color !== color) {
+            } else if (boardMatrix[col][row].color !== piece.color) {
                 return true
             } else {
                 return false
@@ -49,10 +50,10 @@ const Board = () => {
         }
     }
 
-    const isMoveTaking = (color, col, row) => {
+    const isMoveTaking = (piece, col, row) => {
         if (boardMatrix[col][row] == null) {
             return false
-        } else if (boardMatrix[col][row].color !== color) {
+        } else if (boardMatrix[col][row].color !== piece.color) {
             return true
         } else {
             return false
@@ -68,54 +69,98 @@ const Board = () => {
                         case 'pawn':
                             if (piece.color === 'white') {
                                 if (piece.hasMoved) {
-                                    piece.possibleMoves = [isMovePossible(piece.color, i, j + 1) ? [i, j + 1] : []]
+                                    if ((isMovePossible(piece, i, j + 1)) && (!isMoveTaking(piece, i, j + 1))) {
+                                        piece.possibleMoves.push([i, j + 1])
+                                    }
+                                    if ((isMovePossible(piece, i + 1, j + 1)) && (isMoveTaking(piece, i + 1, j + 1))) {
+                                        piece.possibleMoves.push([i + 1, j + 1])
+                                    }
+                                    if ((isMovePossible(piece, i - 1, j + 1)) && (isMoveTaking(piece, i - 1, j + 1))) {
+                                        piece.possibleMoves.push([i - 1, j + 1])
+                                    }
                                 } else {
-                                    piece.possibleMoves = [isMovePossible(piece.color, i, j + 1) ? [i, j + 1] : [], isMovePossible(piece.color, i, j + 2) ? [i, j + 2] : []]
+                                    for (let k = 1; k < 3; k++) {
+                                        if ((isMovePossible(piece, i, j + k)) && (!isMoveTaking(piece, i, j + k))) {
+                                            piece.possibleMoves.push([i, j + k])
+                                        } else if (isMoveTaking(piece, i, j + k)) {
+                                            break
+                                        } else {
+                                            break
+                                        }
+                                    }
+                                    if ((isMovePossible(piece, i + 1, j + 1)) && (isMoveTaking(piece, i + 1, j + 1))) {
+                                        piece.possibleMoves.push([i + 1, j + 1])
+                                    }
+                                    if ((isMovePossible(piece, i - 1, j + 1)) && (isMoveTaking(piece, i - 1, j + 1))) {
+                                        piece.possibleMoves.push([i - 1, j + 1])
+                                    }
                                 }
                             } else {
                                 if (piece.hasMoved) {
-                                    piece.possibleMoves = [isMovePossible(piece.color, i, j - 1) ? [i, j - 1] : []]
+                                    if ((isMovePossible(piece, i, j - 1)) && (!isMoveTaking(piece, i, j - 1))) {
+                                        piece.possibleMoves.push([i, j - 1])
+                                    }
+                                    if ((isMovePossible(piece, i + 1, j - 1)) && (isMoveTaking(piece, i + 1, j - 1))) {
+                                        piece.possibleMoves.push([i + 1, j - 1])
+                                    }
+                                    if ((isMovePossible(piece, i - 1, j - 1)) && (isMoveTaking(piece, i - 1, j - 1))) {
+                                        piece.possibleMoves.push([i - 1, j - 1])
+                                    }
                                 } else {
-                                    piece.possibleMoves = [isMovePossible(piece.color, i, j - 1) ? [i, j - 1] : [], isMovePossible(piece.color, i, j - 2) ? [i, j - 2] : []]
+                                    for (let k = 1; k < 3; k++) {
+                                        if ((isMovePossible(piece, i, j - k)) && (!isMoveTaking(piece, i, j - k))) {
+                                            piece.possibleMoves.push([i, j - k])
+                                        } else if (isMoveTaking(piece, i, j - k)) {
+                                            break
+                                        } else {
+                                            break
+                                        }
+                                    }
+                                    if ((isMovePossible(piece, i + 1, j - 1)) && (isMoveTaking(piece, i + 1, j - 1))) {
+                                        piece.possibleMoves.push([i + 1, j - 1])
+                                    }
+                                    if ((isMovePossible(piece, i - 1, j - 1)) && (isMoveTaking(piece, i - 1, j - 1))) {
+                                        piece.possibleMoves.push([i - 1, j - 1])
+                                    }
                                 }
                             }
                             
                         break
                         case 'rook':
                             for (let k = 1; k < 8 - j; k++) {
-                                if (isMovePossible(piece.color, i, j + k)) {
+                                if (isMovePossible(piece, i, j + k)) {
                                     piece.possibleMoves.push([i, j + k])
                                 } else {
                                     break
                                 }
 
-                                if (isMoveTaking(piece.color, i, j + k)) {
+                                if (isMoveTaking(piece, i, j + k)) {
                                     break
                                 }
                                 
                             }
 
                             for (let k = 1; k < j + 1; k++) {
-                                if (isMovePossible(piece.color, i, j - k)) {
+                                if (isMovePossible(piece, i, j - k)) {
                                     piece.possibleMoves.push([i, j - k])
                                 } else {
                                     break
                                 }
 
-                                if (isMoveTaking(piece.color, i, j - k)) {
+                                if (isMoveTaking(piece, i, j - k)) {
                                     break
                                 }
                                 
                             }
 
                             for (let k = 1; k < 8 - i; k++) {
-                                if (isMovePossible(piece.color, i + k, j)) {
+                                if (isMovePossible(piece, i + k, j)) {
                                     piece.possibleMoves.push([i + k, j])
                                 } else {
                                     break
                                 }
 
-                                if (isMoveTaking(piece.color, i + k, j)) {
+                                if (isMoveTaking(piece, i + k, j)) {
                                     break
                                 }
                                 
@@ -138,14 +183,13 @@ const Board = () => {
                         break
                     }
                 }
-                if ((i === 0) && (j === 0)) console.log(piece)
                 return piece
             })
             return column
         }))
     }
 
-    for(let i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
         for(let j = 0; j < 8; j++) {
             squaresToRender.push(<Square selected={((selectedSquare[0] === j) && (selectedSquare[1] === i))} squareOnClick={squareOnClick} piece={boardMatrix[j][i]} key={String.fromCharCode(97 + j) + (i + 1)} column={j} row={i} color={(i % 2) ? ((j % 2) ? 'square-black' : 'square-white') : ((j % 2) ? 'square-white' : 'square-black')}/>)
         }   
