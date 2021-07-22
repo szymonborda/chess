@@ -34,6 +34,14 @@ body {
   background-color: rgb(173, 26, 43);
 }
 
+.square-black.square-possible-to-move {
+  background-color: rgb(41, 117, 26);
+}
+
+.square-white.square-possible-to-move {
+  background-color: rgb(26, 173, 75);
+}
+
 .square-last-moved {
   background-color: rgb(117 108 86);
 }
